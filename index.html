@@ -15,19 +15,69 @@
         header { 
             background: #0056b3; 
             color: #fff; 
-            padding: 1.5rem 0; 
+            padding: 2rem 1rem; 
             text-align: center; 
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 120px;
         }
-        header h1 { margin: 0; font-size: 2.5rem; letter-spacing: 1px; }
-        header p { margin: 5px 0 0 0; font-size: 1.2rem; color: #e0e0e0; }
+        
+        /* Krabička vlevo nahoře: Logo + Slogan HNED VEDLE SEBE */
+        .logo-slogan-box {
+            position: absolute;
+            top: 10px; /* Lehké odsazení od úplného kraje */
+            left: 10px;
+            display: flex;
+            align-items: center;
+            /* Mezera se plynule zmenšuje podle šířky displeje (vw) */
+            gap: clamp(8px, 1.5vw, 15px); 
+        }
+        
+        /* Logo lícující vlevo - plynule se zmenšuje v jednotkách VW */
+        .logo {
+            width: clamp(50px, 8vw, 110px);
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+        
+        /* Slogan v jednotkách VW (na mobilu zmenší, na PC má max 40px) */
+        .slogan {
+            text-align: left;
+            font-weight: 800;
+            line-height: 1.15;
+            color: #ffffff;
+            font-size: clamp(14px, 3.5vw, 40px); /* TADY JE VW */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            white-space: nowrap;
+        }
+
+        .header-content {
+            margin-top: 20px;
+        }
+        
+        header h1 { 
+            margin: 0; 
+            font-size: 2.2rem; 
+            letter-spacing: 1px; 
+        }
+        header p { 
+            margin: 5px 0 0 0; 
+            font-size: 1.1rem; 
+            color: #e0e0e0; 
+        }
+        
         .hero { 
             background: #f8f9fa; 
-            padding: 4rem 1rem; 
+            padding: 3.5rem 1rem; 
             text-align: center; 
         }
         .hero h2 { color: #0056b3; font-size: 2rem; margin-bottom: 1rem; }
-        .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 2rem auto; }
+        .hero p { font-size: 1.2rem; max-width: 650px; margin: 0 auto 2rem auto; }
         .btn { 
             display: inline-block; 
             background: #28a745; 
@@ -80,30 +130,43 @@
             color: #888; 
             font-size: 0.9rem; 
         }
+
+        /* Odsazení na mobilech, aby logo se sloganem nepřekrývaly hlavní nadpis */
+        @media (max-width: 768px) {
+            header {
+                padding-top: 5rem; 
+            }
+            header h1 {
+                font-size: 1.8rem;
+            }
+        }
     </style>
 </head>
 <body>
 
 <header>
- <div style="position: absolute; top: 0; left: 0; display: flex; align-items: flex-start; text-align: left; margin: 0; padding: 0; width: 100%; box-sizing: border-box;"></div>
- <img src="images/kouhout-screenshot.png.png" alt="Můj screenshot" style="width: 100px; max-width: 22vw; height: auto; margin: 0; padding: 0; display: block; flex-shrink: 0;">
-    <div style="margin-left: max(120px, 25vw); padding-top: 5px; font-family: sans-serif; text-align: left;"></div>
-      <h1 style="margin: 0; font-size: clamp(18px, 4vw + 12px, 40px); text-align: left; line-height: 1.1;">
-            S námi to teče
-            <br>
+    <!-- Obrázek a slogan vedle něj -->
+    <div class="logo-slogan-box">
+        <img src="images/kouhout-screenshot.png.png" 
+             alt="Roman Štajmar Logo" 
+             class="logo"
+             onerror="this.onerror=null; this.src='images/kohout.png';">
+        <div class="slogan">
+            S námi to teče<br>
             tam, kde má!
-        </h1>
-
+        </div>
     </div>
-
-</div>
-  <h1>vodoinstalateri.cz</h1>
-    <p>Profesionální instalatérské služby</p>
+    
+    <!-- Hlavní nadpis webu -->
+    <div class="header-content">
+        <h1>vodoinstalateri.cz</h1>
+        <p>Profesionální instalatérské a topenářské služby</p>
+    </div>
 </header>
 
 <div class="hero">
-    <h2>Potřebujete instalatéra? Jsem tu pro Vás!</h2>
-    <p>Jmenuji se Roman Štajmar a nabízím vodoinstalatérské a topenařské práce , opravy i montáže pro vaši domácnost či firmu.</p>
+    <h2>Potřebujete instalatéra či topenáře? Jsem tu pro Vás!</h2>
+    <p>Jmenuji se Roman Štajmar a nabízím vodoinstalatérské a topenářské práce, opravy i montáže pro vaši domácnost či firmu.</p>
     <a href="tel:602324419" class="btn">Zavolat ihned: 602 324 419</a>
 </div>
 
@@ -112,8 +175,8 @@
     <ul class="service-list">
         <li>💧 <strong>Drobné opravy:</strong> Výměny vodovodních baterií, splachovačů, WC, dřezů a umyvadel.</li>
         <li>🔧 <strong>Montáže a rozvody:</strong> Kompletní instalatérské rozvody vody a odpadů.</li>
-        <li>♨️ <strong>Topenářské práce:</strong> montáže topných rozvodů. Instalace, výměna otopných těles. Instalace zdrojů tepla</li>
-        <li>🧱 <strong>Montáž teplovodního podlahového vytapění</strong> </li>
+        <li>♨️ <strong>Topenářské práce:</strong> Montáže topných rozvodů, výměna otopných těles a instalace zdrojů tepla.</li>
+        <li>🧱 <strong>Podlahové vytápění:</strong> Montáž teplovodního podlahového vytápění na klíč.</li>
         <li>🚨 <strong>Řešení havárií:</strong> Rychlé opravy prasklých trubek a úniků vody.</li>
         <li>🚿 <strong>Zapojení spotřebičů:</strong> Odborné připojení praček, myček a instalace bojlerů.</li>
     </ul>
@@ -121,12 +184,11 @@
 
 <div class="contact">
     <h3>Kontakt</h3>
-    <p>Neodtéká vám odpad nebo potřebujete novou koupelnu? Ozvěte se mi.</p>
+    <p>Neodtéká vám odpad, teče topení nebo plánujete rekonstrukci? Ozvěte se mi.</p>
     <p><strong>Roman Štajmar</strong></p>
     <p>📞 Telefon: <a href="tel:602324419">602 324 419</a></p>
-    <!-- Zde je upravený odkaz, který otevírá přímo Gmail a předvyplní tvou adresu -->
     <p>✉️ E-mail: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=roman.stajmar@vodoinstalateri.cz" target="_blank" rel="noopener noreferrer">roman.stajmar@vodoinstalateri.cz</a></p>
-    <p>Adresa: Přemyslova 1020 Dobříš 263 01 </p>
+    <p>📍 Adresa: Přemyslova 1020, Dobříš 263 01</p>
 </div>
 
 <footer>
